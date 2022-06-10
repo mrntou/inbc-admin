@@ -8,7 +8,7 @@ auth = Blueprint("auth", __name__)
 
 
 
-@auth.route('/login')
+@auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return  "OK"
@@ -22,7 +22,7 @@ def login():
 
         if user and user.check_password(form.password.data):
             login_user(user, remember=form.remember.data, force=True)
-            return redirect('Login OK')
+            return redirect(url_for('main.index'))
 
         else:
             flash("<b>Hata:</b>Kullanıcı adı veya şifre yalnış!", "warning")
@@ -30,3 +30,10 @@ def login():
 
     
     return render_template('login.html', form=form)
+
+
+
+@auth.route('/logout')
+def logout():
+    logout_user
+    return redirect(url_for('login'))

@@ -43,8 +43,33 @@
                                         <img src="{{ url_for('static', filename='img/teams.png') }}" alt="Charles Hall"
                                             class="img-fluid rounded-circle" width="250" height="250" />
                                     </div>
-                                    {{form.hidden_tag()}}
-                                    <form action="", method='post'>
+                                    
+                                    <!-- Flash Messages -->
+                                    {% with messages = get_flashed_messages(with_categories=True) %}
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    <!-- <div class="alert alert-{{ category }}" role="alert" id="error_msg">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{message | safe}}
+                                    </div> -->
+
+                                    <div class="alert alert-warning alert-dismissible fade show text-center text-danger" role="alert">
+                                {{message | safe}}
+
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    {% endfor %}
+                                    {% endif %}
+                                    {% endwith %}
+
+                                    <!-- End Flash Messages -->
+
+
+                                    <form action="" method='post'>
+                                {{form.hidden_tag()}}
+
                                         <div class="mb-3">
                                             <label class="form-label">Kullanıcı Adı</label>
                                             {{ form.username(class='form-control form-control-lg', placeholder='Kullanici Adi') }}
