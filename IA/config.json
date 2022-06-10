@@ -1,0 +1,5 @@
+{
+    "SECRET_KEY":"myawesomesecretkey",
+    "SQLALCHEMY_DATABASE_URI":"sqlite:///iadata.db",
+    "SQLALCHEMY_TRACK_MODIFICATION":true
+}
