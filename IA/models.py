@@ -9,7 +9,7 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-
+# INBC Admin Users -------------------------------------------------------
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String())
@@ -29,3 +29,44 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<User> {self.username}"
+
+
+# INBC Members --------------------------------------------------------
+class Member(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String())
+    lastname = db.Column(db.String())
+    phone = db.Column(db.String())
+    email = db.Column(db.String())
+
+    # Relationships -
+    region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
+
+    def _repr__(self):
+        return f"<Member> {self.name} {self.lastname}"
+
+
+
+class DeviceAntenna(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    device_name = db.Column(db.String())
+    members = db.relationship('Member', backref='deviceantenna', lazy=True)
+
+
+
+class DeviceModem(db.Column):
+    id = db.Column(db.Integer, primary_key=True)
+    device_name = db.Column(db.String())
+    members = db.relationship('Member', backref='devicemodem', lazy=True)
+
+    
+
+
+class Region(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    region = db.Column(db.String())
+    members = db.relationship('Member', backref='region', lazy=True)
+
+    
+
+    
