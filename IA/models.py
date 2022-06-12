@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String())
     email = db.Column(db.String())
-    image = db.Column(db.String(), default="user_default.png")
+    profile_image = db.Column(db.String(), default="user_default.png")
     is_admin = db.Column(db.Boolean, default=True)
     password_hash = db.Column(db.String())
 
@@ -36,28 +36,33 @@ class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String())
     lastname = db.Column(db.String())
-    phone = db.Column(db.String())
+    phone_number = db.Column(db.String())
     email = db.Column(db.String())
 
     # Relationships -
     region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
+    antenna_device_id = db.Column(db.Integer, db.ForeignKey('antenna_device.id'))
+    modem_device_id = db.Column(db.Integer, db.ForeignKey('modem_device.id'))
+
 
     def _repr__(self):
         return f"<Member> {self.name} {self.lastname}"
 
 
 
-class DeviceAntenna(db.Model):
+class AntennaDevice(db.Model):
+    __tablename__ = "antenna_device"
     id = db.Column(db.Integer, primary_key=True)
     device_name = db.Column(db.String())
-    members = db.relationship('Member', backref='deviceantenna', lazy=True)
+    members = db.relationship('Member', backref='antenna_device', lazy=True)
 
 
 
-class DeviceModem(db.Column):
+class ModemDevice(db.Column):
+    __tablename__ = "modem_device"
     id = db.Column(db.Integer, primary_key=True)
     device_name = db.Column(db.String())
-    members = db.relationship('Member', backref='devicemodem', lazy=True)
+    members = db.relationship('Member', backref='modem_device', lazy=True)
 
     
 
@@ -69,4 +74,13 @@ class Region(db.Model):
 
     
 
-    
+
+
+class Password(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    note = db.Column(db.String())
+    user = db.Column(db.String())
+    password = db.Column(db.String())
+
+
+

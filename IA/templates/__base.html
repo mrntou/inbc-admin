@@ -19,6 +19,9 @@
 
     <link href="{{ url_for('static', filename='css/app.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- Datatables JS CSS-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.css" />
 </head>
 
 
@@ -45,8 +48,8 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="pages-profile.html">
-                            <i class="align-middle" data-feather="user"></i> <span class="align-middle">Profile</span>
+                        <a class="sidebar-link" href="{{ url_for('main.users') }}">
+                            <i class="align-middle" data-feather="users"></i> <span class="align-middle">Kullanıcılar</span>
                         </a>
                     </li>
 
