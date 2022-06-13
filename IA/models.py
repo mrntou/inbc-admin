@@ -34,28 +34,36 @@ class User(UserMixin, db.Model):
 # INBC Members --------------------------------------------------------
 class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String())
     name = db.Column(db.String())
     lastname = db.Column(db.String())
     phone_number = db.Column(db.String())
     email = db.Column(db.String())
 
+    # Device Information
+    ipv4 = db.Column(db.String())
+    mac = db.Column(db.String())
+    device_username = db.Column(db.String())
+
     # Relationships -
     region_id = db.Column(db.Integer, db.ForeignKey('region.id'))
     antenna_device_id = db.Column(db.Integer, db.ForeignKey('antenna_device.id'))
-    modem_device_id = db.Column(db.Integer, db.ForeignKey('modem_device.id'))
+    ap_device_id = db.Column(db.Integer, db.ForeignKey('ap_device.id'))
+
+    # modem_device_id = db.Column(db.Integer, db.ForeignKey('modem_device.id'))
 
 
     def _repr__(self):
         return f"<Member> {self.name} {self.lastname}"
 
 
-
+# Model Product Devices --------------------------------------------------
 class AntennaDevice(db.Model):
     __tablename__ = "antenna_device"
     id = db.Column(db.Integer, primary_key=True)
     device_name = db.Column(db.String())
+    mode = db.Column(db.Boolean, default=False)
     members = db.relationship('Member', backref='antenna_device', lazy=True)
-
 
 
 class ModemDevice(db.Column):
@@ -64,7 +72,7 @@ class ModemDevice(db.Column):
     device_name = db.Column(db.String())
     members = db.relationship('Member', backref='modem_device', lazy=True)
 
-    
+# --------------------------------------------------------------------------- 
 
 
 class Region(db.Model):
@@ -73,6 +81,12 @@ class Region(db.Model):
     members = db.relationship('Member', backref='region', lazy=True)
 
     
+class ApDevice(db.Model):
+    __tablename__ = 'ap_device'
+    id = db.Column(db.Integer, primary_key=True)
+    device_username = db.Column(db.String())
+    members = db.relationship('Member', backref='ap_device', lazy=True)
+
 
 
 

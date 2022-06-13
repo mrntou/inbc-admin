@@ -24,9 +24,25 @@ if args['user']:
 
 if args['region']:
     regions = ['satikoy','omurlukoy','basirlikoy','demirbeyli']
+    antenna_devices = ["LiteBeam 5AC Gen2", "AirGrid M5 HP", "LiteBeam M5"]
+    ap_devices = ['INBC NET - VN AP', "INBC NET PSVN A", "INBC NET - OM", "INBCNET5"]
+    modem_devices = ['TP-LINK']
     for x in regions:
         r = Region(region=x)
         db.session.add(r)
+
+    for x in antenna_devices:
+        an = AntennaDevice(device_name=x)
+        db.session.add(an)
+
+    for x in ap_devices:
+        ap = ApDevice(device_username=x)
+        db.session.add(ap)
+
+    # for x in modem_devices:
+    #     modem = ModemDevice(device_name=x)
+    #     db.session.add(x)
+
     db.session.commit()
 
 if args['delete']:

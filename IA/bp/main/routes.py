@@ -16,7 +16,8 @@ def index():
 # All users in datable.js
 @main.route('/users')
 def users():
-    return render_template('users.html')
+    members = Member.query.order_by(Member.id.desc()).all()
+    return render_template('users.html', users=members)
 
 
 @main.route('/register')
