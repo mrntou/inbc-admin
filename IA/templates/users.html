@@ -25,12 +25,47 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
+
+                        <!-- Flash Messages -->
+                        {% with messages = get_flashed_messages(with_categories=True) %}
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        <!-- <div class="alert alert-{{ category }}" role="alert" id="error_msg">
+                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                                {{message | safe}}
+                                                            </div> -->
+                        
+                        <div class="alert alert-{{category}} alert-dismissible fade show text-center" role="alert">
+                            {{message | safe}}
+                        
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
                         <h5 class="card-title mb-0">
                            
                             <a href="{{ url_for('main.register') }}" class="btn btn-primary">
                                 <i class="align-middle" data-feather="user-plus"></i> Yeni Kullanıcı Ekle
                             </a>
+
+                            {% if app.config['MODE'] == 'development' %}
+                            <a href="{{ url_for('dev.delete_all_members') }}" class="btn btn-warning">
+                                <i class="align-middle" data-feather="shield"></i>DEV:Tüm Kullanıcıları Sil
+                            </a>
+
+                            <a href="{{ url_for('dev.add_members') }}" class="btn btn-warning">
+                                <i class="align-middle" data-feather="shield"></i>DEV:Kullanicilari Ekle
+                            </a>
+                            {% endif %}
                         </h5>
+                    </div>
+
+                    <div class="'container">
+
+                        
                     </div>
                     <div class="card-body">
                     
@@ -38,7 +73,7 @@
                         <table id="example" class="display" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>*</th>
+                                    <th>ID</th>
                                     <th>Kullanici Adi</th>
                                     <th>İsim</th>
                                     <th>Soy İsim</th>
@@ -46,6 +81,7 @@
                                     <th>IP</th>
                                     <th>Anten</th>
                                     <th>Verici</th>
+                                    <th>/</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,9 +89,7 @@
                                 {% for user in users %}
                                 <tr>
                                 
-                                    <td>
-                                        <i class="align-middle" data-feather="user-plus"></i> <a href="">*</a>
-                                    </td>
+                                    <td>{{ user.id }}</td>
                                     <td>{{ user.username | title }}</td>
                                     <td>{{ user.name | title }}</td>
                                     <td>{{ user.lastname | title }}</td>
@@ -63,6 +97,11 @@
                                     <td>{{ user.ipv4 }}</td>
                                     <td>{{ user.antenna_device.device_name }}</td>
                                     <td>{{ user.ap_device.device_username }}</td>
+                                    <td>
+                                        <a href="{{ url_for('form.edit_member', member_id=user.id) }}">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
 
                                 </tr>
                                 {% endfor %}

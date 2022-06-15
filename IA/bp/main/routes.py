@@ -2,6 +2,7 @@ from flask import render_template, redirect, url_for, abort, Blueprint, flash, r
 from flask_login import login_user, logout_user, current_user, login_required
 from IA.models import *
 from IA.forms import *
+from IA import app
 
 main = Blueprint('main', '__name__')
 
@@ -17,15 +18,22 @@ def index():
 @main.route('/users')
 def users():
     members = Member.query.order_by(Member.id.desc()).all()
-    return render_template('users.html', users=members)
+    return render_template('users.html', users=members, app=app)
 
 
-@main.route('/register')
+@main.route('/register', methods=["GET","POST"])
 def register():
     form = MemberForm()
-    if form.validate_on_submit:
-        pass
-    return render_template("register.html", form=form)
+    url = url_for('form.register_member')
+    
+    return render_template("register.html", form=form, title="Kullanıcı Kayıt Formu", url=url)
+
+
+
+@main.route('/devices')
+def devices():
+    antenna_devices = AntennaDevice.query.all()
+    return render_template('devices.html', devices=antenna_devices)
 
 
 

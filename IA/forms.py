@@ -44,6 +44,8 @@ class LoginForm(FlaskForm):
 
 
 
+
+# Inbc Member Form
 class MemberForm(FlaskForm):
     username = StringField(validators=[DataRequired()])
     name = StringField(validators=[DataRequired()])

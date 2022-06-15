@@ -17,8 +17,16 @@ migrate = Migrate(app, db)
 
 from IA.bp.auth.routes import auth
 from IA.bp.main.routes import main
+from IA.bp.form.routes import form
+from IA.bp.dev.routes import dev
+
+
 
 
 app.register_blueprint(auth)
 app.register_blueprint(main)
+app.register_blueprint(form)
+app.register_blueprint(dev)
+
+
 

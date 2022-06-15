@@ -3,10 +3,30 @@
 
 <main class="content">
 	<div class="container-fluid p-0">
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+{% for category, message in messages %}
+<!-- <div class="alert alert-{{ category }}" role="alert" id="error_msg">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        {{message | safe}}
+                                    </div> -->
 
+<div class="alert alert-{{category}} alert-dismissible fade show text-center" role="alert">
+	{{message | safe}}
+
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<!-- End Flash Messages -->
 		<div class="mb-3">
-			<h1 class="h3 d-inline align-middle">Kullanıcı Kayıt Formu</h1>
-			<form action="" method="post">
+			<h1 class="h3 d-inline align-middle">{{ title }}</h1>
+			<form action="{{ url }}" method="post">
 				{{ form.hidden_tag() }}
 		</div>
 		<div class="row">
@@ -124,8 +144,8 @@
 
 						<br>
 						<div class="d-grid">
-
-							{{ form.submit(class='btn btn-primary btn-lg ') }}
+							<input type="submit" class="btn-lg" value="{{btn}}">
+							<!-- {{ form.submit(class='btn btn-primary btn-lg ') }} -->
 						</div>
 
 
