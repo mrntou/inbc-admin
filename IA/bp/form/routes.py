@@ -51,7 +51,7 @@ def edit_member(member_id):
         member.mac = form.mac.data
             
         region = Region.query.get(form.region.data.id)
-        if member in region.members:
+        if not member in region.members:
             region.members.append(member)
         
 
