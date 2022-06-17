@@ -26,14 +26,18 @@ def register():
     form = MemberForm()
     url = url_for('form.register_member')
     
-    return render_template("register.html", form=form, title="Kullanıcı Kayıt Formu", url=url)
+    return render_template("register.html",
+                           form=form,
+                           title="Kullanıcı Kayıt Formu",
+                           url=url,
+                           btn="Oluştur")
 
 
 
 @main.route('/devices')
 def devices():
     antenna_devices = AntennaDevice.query.all()
-    return render_template('devices.html', devices=antenna_devices)
+    return render_template('devices.html', antenna_devices=antenna_devices)
 
 
 

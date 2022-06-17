@@ -81,4 +81,9 @@ class MemberForm(FlaskForm):
     submit = SubmitField("Oluştur")
 
 
+class AntennaDeviceForm(FlaskForm):
+    product = StringField()
+    
+
+
     
