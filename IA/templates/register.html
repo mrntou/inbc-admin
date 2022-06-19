@@ -143,10 +143,19 @@
 						</div>
 
 						<br>
-						<div class="d-grid">
-							<input type="submit" class="btn btn-primary btn-lg" value="{{btn}}">
-							<!-- {{ form.submit(class='btn btn-primary btn-lg ') }} -->
-						</div>
+							<div class="d-grid">
+								<input type="submit" class="btn btn-primary btn-lg" value="{{btn}}">
+								
+								<!-- {{ form.submit(class='btn btn-primary btn-lg ') }} -->
+							</div>
+							
+							{% if btn == 'Düzenle' %}
+							<div class="d-grid my-2">
+								<a href="{{ url_for('form.delete_member', member_id=member.id) }}" class="btn btn-danger btn-lg">Sil</a>
+							
+								<!-- {{ form.submit(class='btn btn-primary btn-lg ') }} -->
+							</div>
+							{% endif %}
 
 
 
@@ -160,10 +169,34 @@
 			<div class="col-12 col-lg-6">
 				<div class="card">
 					<div class="card-header">
-						<h5 class="card-title mb-0"></h5>
+						<h5 class="card-title mb-0">Harita Bilgileri</h5>
 					</div>
 					<div class="card-body my-3">
-						<img class="img-fluid" src="{{ url_for('static', filename='img/user_register.png') }}" </div>
+						<div class="row">
+							<div class="col-6">
+								<div class="form-group">
+									<label>Enlem X</label>
+									{{ form.latitude(class='form-control', placeholder='Enlem X') }}
+								</div>
+							</div>
+						
+							<div class="col-6">
+						
+								<div class="form-group">
+									<label>Boylam Y</label>
+									{{ form.langitude(class='form-control', placeholder='Boylam Y') }}
+								</div>
+						
+							</div>
+						
+						
+						</div>
+
+						<div class="col-md-12">
+							
+							<a href="https://www.latlong.net/" target="_blank">Map</a>
+						</div>
+
 
 					</div>
 

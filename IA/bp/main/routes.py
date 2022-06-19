@@ -32,12 +32,17 @@ def register():
                            url=url,
                            btn="Oluştur")
 
-
-
 @main.route('/devices')
 def devices():
     antenna_devices = AntennaDevice.query.all()
     return render_template('devices.html', antenna_devices=antenna_devices)
 
 
-
+@main.route('/regions')
+def regions():
+    import folium
+    m = folium.Map([42.363600,-71.099500],
+    popup='Location One',
+    tooltip='Click for more info')
+    m.save('map.html')
+    return render_template('regions.html')

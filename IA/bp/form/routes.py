@@ -20,7 +20,6 @@ def register_member():
             ipv4=form.ipv4.data,
             mac=form.mac.data
         )
-
         region = Region.query.get(form.region.data.id)
         region.members.append(member)
 
@@ -35,12 +34,12 @@ def register_member():
         flash(f"{member.username} isimli kullanıcı başarılı bir şekilde oluşturuldu ", "success")
         return redirect(url_for('main.register'))
 
+
+
 @form.route("/member/edit/<int:member_id>", methods=['GET','POST'])
 def edit_member(member_id):
     member = Member.query.get_or_404(member_id)
     form = MemberForm()
-
-    
     if form.validate_on_submit():
         member.username = form.username.data
         member.name = form.name.data
@@ -60,7 +59,7 @@ def edit_member(member_id):
             antenna_device.members.append(member)
 
         print("OK")
-        flash("Yeniden Duzenleme Basarili", "success")
+        flash(f"<b>{member.username}</b> adlı kullanıcı yeniden düzenlendi ", "success")
         db.session.commit()
 
         return redirect(url_for('main.users'))
@@ -83,6 +82,14 @@ def edit_member(member_id):
     return render_template("register.html",
                                 form=form, title=f"{member.username} adli kullanıcıyı yeniden düzenle ",
                                 btn="Düzenle",
-                                url=url)
+                                url=url,
+                                member=member)
 
     
+@form.route('/member/delete/<int:member_id>')
+def delete_member(member_id):
+    member = Member.query.get_or_404(member_id)
+    db.session.delete(member)
+    flash(f'<b>{member.username} </b> adlı kullanıcı veritabanından silindi', 'success')
+    db.session.commit()
+    return redirect(url_for('main.users'))

@@ -55,7 +55,6 @@ class MemberForm(FlaskForm):
     ipv4 = StringField(validators=[DataRequired()])
     mac = StringField()
 
-
     region = QuerySelectField(
         query_factory=query.region,
         allow_blank=False,
@@ -77,6 +76,9 @@ class MemberForm(FlaskForm):
         get_label="device_name")
     
     email = StringField()
+    latitude = StringField()
+    langitude = StringField()
+
 
     submit = SubmitField("Oluştur")
 

@@ -50,6 +50,10 @@ class Member(db.Model):
     antenna_device_id = db.Column(db.Integer, db.ForeignKey('antenna_device.id'))
     ap_device_id = db.Column(db.Integer, db.ForeignKey('ap_device.id'))
 
+    # Map Location Informations
+    latitude = db.Column(db.String())
+    longitude = db.Column(db.String())
+
     # modem_device_id = db.Column(db.Integer, db.ForeignKey('modem_device.id'))
 
 
