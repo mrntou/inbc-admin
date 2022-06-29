@@ -6,7 +6,7 @@ from IA.forms import *
 form = Blueprint('form', '__name__')
 
 
-
+# OK
 @form.route('/register/member', methods=["POST"])
 def register_member():
     form = MemberForm()
@@ -53,12 +53,15 @@ def edit_member(member_id):
         if not member in region.members:
             region.members.append(member)
         
-
+        # Bitakine not al hayvan !!!
         antenna_device = AntennaDevice.query.get(form.antenna_device.data.id)
         if not member in antenna_device.members:
             antenna_device.members.append(member)
 
-        print("OK")
+        ap_device = ApDevice.query.get(form.ap_device.data.id)
+        if not member in ap_device.members:
+            ap_device.members.append(member)
+
         flash(f"<b>{member.username}</b> adlı kullanıcı yeniden düzenlendi ", "success")
         db.session.commit()
 
@@ -80,7 +83,7 @@ def edit_member(member_id):
 
 
     return render_template("register.html",
-                                form=form, title=f"{member.username} adli kullanıcıyı yeniden düzenle ",
+                                form=form, title=f"{member.username} adli kullanıcıyı yeniden düzenle",
                                 btn="Düzenle",
                                 url=url,
                                 member=member)

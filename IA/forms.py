@@ -24,7 +24,6 @@ from IA.models import ApDevice, ModemDevice, AntennaDevice, Region
 # SQLAlchemy Queries -- 
 
 class Query:
-
     def modem(self):
         return ModemDevice.query
     def antenna(self):
