@@ -58,14 +58,61 @@
                     <div class="card-body">
 
                         <div class="row">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="list-group" id="list-tab" role="tablist">
+                                        {% for region in regions %}
+                                        <a class="list-group-item list-group-item-action" id="list-home-list" data-bs-toggle="list"
+                                            href="#list-{{region.id}}" role="tab" aria-controls="list-home">{{region.region | title}}</a>
+                                        {% endfor %}
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <div class="tab-content" id="nav-tabContent">
+                                        {% for region in regions %}
+                                        <div class="tab-pane fade show" id="list-{{region.id}}" role="tabpanel" aria-labelledby="list-home-list">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Kullanıcı Adı</th>
+                                                        <th scope="col">*</th>
 
-                            {% for region in regions %}
-                            <div class="col-md-4">
-                                <button class="btn">{{ region.region }}</button>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <h5 class='text-center'>Toplam: {{ region.members | length }}</h5>
 
+                                                    <a href="{{ url_for('form.delete_region', region_id=region.id) }}" class="btn btn-danger btn-small">
+                                                        Bolge Sil
+                                                    </a>
+                                                    {% for member in region.members %}
+                                                    
+                                                    <tr>
+                                                        <td>{{ member.username }}</td>
+                                                        <td>
+                                                            <a href="{{ url_for('form.edit_member', member_id=member.id) }}">
+                                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                            </a>
+                                                        </td>
+
+                                    
+                                                    </tr>
+                                                    
+                                                    {% endfor %}
+                                                    
+                                                  
+                                                </tbody>
+                                            </table>
+                                          
+                                        </div>
+                                        {% endfor %}
+                                       
+                                    </div>
+                                </div>
                             </div>
-
-                            {% endfor %}
+                            
 
 
                         </div>

@@ -109,3 +109,11 @@ def add_region():
         db.session.commit()
         flash("Yeni bölge başarıyla oluşturuldu ", "info")
         return redirect(url_for('main.regions'))
+
+@form.route('/region/delete/<int:region_id>')
+def delete_region(region_id):
+    region = Region.query.get_or_404(region_id)
+    db.session.delete(region)
+    db.session.commit()
+    flash(f"{region.region} silindi!", 'info')
+    return redirect(url_for('main.regions'))
