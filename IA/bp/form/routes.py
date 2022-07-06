@@ -6,7 +6,7 @@ from IA.forms import *
 form = Blueprint('form', '__name__')
 
 
-# OK
+# Editing and Deleteting records in the user database -----------------------------
 @form.route('/register/member', methods=["POST"])
 def register_member():
     form = MemberForm()
@@ -96,3 +96,16 @@ def delete_member(member_id):
     flash(f'<b>{member.username} </b> adlı kullanıcı veritabanından silindi', 'success')
     db.session.commit()
     return redirect(url_for('main.users'))
+
+# --------------------------------------------------------------------------
+
+
+@form.route('/region/add', methods=['POST'])
+def add_region():
+    form = RegionForm()
+    if form.validate_on_submit():
+        region = Region(region=form.region.data)
+        db.session.add(region)
+        db.session.commit()
+        flash("Yeni bölge başarıyla oluşturuldu ", "info")
+        return redirect(url_for('main.regions'))

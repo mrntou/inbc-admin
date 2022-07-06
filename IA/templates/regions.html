@@ -9,12 +9,67 @@
 
         <div class="row">
             <div class="col-12">
+
                 <div class="card">
+
                     <div class="card-header">
-                        <h5 class="card-title mb-0">Empty card</h5>
+                        <h5 class="card-title mb-0">Bölgeler</h5>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#staticBackdrop">
+                            Bölge Ekle
+                        </button>
+                        <br>
+                        <!-- Modal -->
+                        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                            tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Bölge Ekle</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <!-- Start Form -->
+                                    <form action="{{ url_for('form.add_region') }}" method="post">
+                                        {{ form.hidden_tag() }}
+                                        <div class="modal-body">
+
+
+                                            <div class="form-group">
+                                                <label>Bölge ismi</label>
+                                                {{ form.region(class='form-control') }}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Kapat</button>
+                                                {{ form.submit(class="btn btn-primary") }}
+                                            
+                                        </div>
+                                    </form>
+                                    <!-- End Form -->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Button trigger modal -->
                     </div>
                     <div class="card-body">
-                        
+
+                        <div class="row">
+
+                            {% for region in regions %}
+                            <div class="col-md-4">
+                                <button class="btn">{{ region.region }}</button>
+
+                            </div>
+
+                            {% endfor %}
+
+
+                        </div>
+
                     </div>
                 </div>
             </div>

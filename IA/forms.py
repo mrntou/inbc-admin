@@ -84,6 +84,11 @@ class MemberForm(FlaskForm):
 
 class AntennaDeviceForm(FlaskForm):
     product = StringField()
+
+
+class RegionForm(FlaskForm):
+    region = StringField(validators=[DataRequired()])
+    submit = SubmitField("Ekle")
     
 
 

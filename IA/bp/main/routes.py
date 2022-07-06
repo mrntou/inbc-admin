@@ -40,9 +40,7 @@ def devices():
 
 @main.route('/regions')
 def regions():
-    import folium
-    m = folium.Map([42.363600,-71.099500],
-    popup='Location One',
-    tooltip='Click for more info')
-    m.save('map.html')
-    return render_template('regions.html')
+    form = RegionForm()
+    regions = Region.query.all()
+
+    return render_template('regions.html', form=form, regions=regions)
